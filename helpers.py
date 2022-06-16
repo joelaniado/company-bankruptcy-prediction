@@ -1,18 +1,39 @@
-from sklearn.utils import resample
-# Binary classification resampling function.
-def grow_class(X_train,y_train, smaller_class, seed):
-    small_class = X_train[y_train == smaller_class]
-    not_small_class = X_train[y_train != smaller_class]
+from sklearn.metrics import classification_report
+from scikitplot.metrics import plot_roc
+from scikitplot.metrics import plot_confusion_matrix
+from scikitplot.metrics import plot_precision_recall
+from scikitplot.metrics import plot_ks_statistic
 
-    print("Smaller class samples: {}".format(small_class.shape[0]))
 
-    # resample potable data points
-    resampled_potable = resample(potable, n_samples=non_potable.shape[0] + 100, random_state=seed)
-    print("Resampled potable samples: {}".format(resampled_potable.shape[0]))
+import matplotlib.pyplot as plt
 
-    # Combine and shuffle the data.
-    data = shuffle(pd.concat([non_potable, resampled_potable]), random_state=seed)
-    print('New distribution of data:\n')
-    data['Potability'].value_counts()
+class metrics:
+    def __init__(self, true, pred, prob):
+        self.true_label = true
+        self.pred_label = pred
+        self.prob_label = prob
+
+    def report(self):
+        print(classification_report(self.true_label, self.pred_label))
+
+    def roc(self):
+        if self.prob_label:
+            fig, ax = plt.subplots()
+            plot_roc(self.true_label, self.prob_label, ax=ax)
+            plt.show()
+
+    def confusion(self, norm=False):
+        plot_confusion_matrix(self.true_label, self.pred_label, normalize=norm)
+        plt.show()
+
+    def PR_curve(self):
+        if self.prob_label:
+            plot_precision_recall(self.true_label,self.prob_label)
+            plt.show()
+    def ks(self):
+        if self.prob_label:
+            plot_ks_statistic(self.true_label,self.prob_label)
+            plt.show()
+
 
 
