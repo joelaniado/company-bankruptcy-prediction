@@ -36,3 +36,5 @@ coverage.xml
 
 
 .idea/
+
+.ipynb_checkpoints
