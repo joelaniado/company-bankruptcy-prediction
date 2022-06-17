@@ -7,17 +7,20 @@ from scikitplot.metrics import plot_ks_statistic
 import matplotlib.pyplot as plt
 
 
-class metrics:
-    def __init__(self, true, pred, prob):
+class metrics():
+    def __init__(self, true, pred, prob=None):
         self.true_label = true
         self.pred_label = pred
         self.prob_label = prob
+
+    def test(self):
+        print('test2')
 
     def report(self):
         print(classification_report(self.true_label, self.pred_label))
 
     def roc(self):
-        if self.prob_label:
+        if self.prob_label is not None:
             fig, ax = plt.subplots()
             plot_roc(self.true_label, self.prob_label, ax=ax)
             plt.show()
@@ -27,11 +30,12 @@ class metrics:
         plt.show()
 
     def PR_curve(self):
-        if self.prob_label:
+        if self.prob_label is not None:
             plot_precision_recall(self.true_label,self.prob_label)
             plt.show()
+
     def ks(self):
-        if self.prob_label:
+        if self.prob_label is not None:
             plot_ks_statistic(self.true_label,self.prob_label)
             plt.show()
 
