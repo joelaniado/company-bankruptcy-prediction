@@ -4,8 +4,8 @@ from scikitplot.metrics import plot_confusion_matrix
 from scikitplot.metrics import plot_precision_recall
 from scikitplot.metrics import plot_ks_statistic
 
-
 import matplotlib.pyplot as plt
+
 
 class metrics:
     def __init__(self, true, pred, prob):
